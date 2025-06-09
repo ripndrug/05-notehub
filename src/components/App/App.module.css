@@ -29,3 +29,9 @@
 .button:hover {
     background-color: #0b5ed7;
 }
+
+.beatloader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -25,11 +25,19 @@ export async function fetchNotes(searchQuery: string, page: number): Promise<Sea
 }
 
 export async function createNote(noteData: NoteFormValues) {
-    const res = await axios.post<Note>('/notes', noteData);
+    const res = await axios.post<Note>('/notes', noteData, {
+        headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_NOTEHUB_TOKEN}`
+        }
+    });
     return res.data;
 }
 
 export async function deleteNote(noteId: string) {
-    const res = await axios.delete(`/notes/${noteId}`);
+    const res = await axios.delete(`/notes/${noteId}`, {
+        headers: {
+            Authorization: `Bearer ${import.meta.env.VITE_NOTEHUB_TOKEN}`
+        }
+    });
     return res.data;
 }

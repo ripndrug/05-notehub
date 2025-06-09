@@ -4,9 +4,10 @@ import SearchBox from '../SearchBox/SearchBox';
 import NoteList from '../NoteList/NoteList';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { useDebounce } from 'use-debounce';
-import { createNote, fetchNotes } from '../../services/noteService';
+import { fetchNotes } from '../../services/noteService';
 import Pagination from '../Pagination/Pagination';
 import NoteModal from '../NoteModal/NoteModal';
+import { BeatLoader } from 'react-spinners';
 
 export default function App() {
   const [query, setQuery] = useState('');
@@ -47,6 +48,11 @@ export default function App() {
         </button>
         {isModalOpen && <NoteModal closeModal={closeModal} />}
       </header>
+      {!data && isLoading && (
+        <div className={css.beatloader}>
+          <BeatLoader />
+        </div>
+      )}
       {data && !isLoading && <NoteList notes={data.notes} />}
     </div>
   );
