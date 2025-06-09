@@ -18,11 +18,6 @@ export default function NoteForm({ closeModal }: NoteFormProps) {
     tag: '',
   };
 
-  // const FormAddMutation = useMutation({
-  //   mutationFn: noteData => createNote(noteData),
-  //   onSuccess: () => queryClient.invalidateQueries({ queryKey: ['notes'] }),
-  // });
-
   const FormAddMutation = useMutation({
     mutationFn: createNote,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['notes'] }),
@@ -35,7 +30,6 @@ export default function NoteForm({ closeModal }: NoteFormProps) {
     FormAddMutation.mutate(values);
     actions.resetForm();
     closeModal();
-    console.log(values);
   }
 
   const NoteAddSchema = Yup.object().shape({
