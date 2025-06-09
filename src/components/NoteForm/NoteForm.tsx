@@ -15,7 +15,7 @@ export default function NoteForm({ closeModal }: NoteFormProps) {
   const initialValues: NoteFormValues = {
     title: '',
     content: '',
-    tag: '',
+    tag: 'Todo',
   };
 
   const FormAddMutation = useMutation({
