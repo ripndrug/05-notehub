@@ -32,10 +32,15 @@ export default function App() {
 
   const totalPages = data?.totalPages ?? 0;
 
+  function handleSearchChange(newQuery: string) {
+    setQuery(newQuery);
+    setCurrentPage(1);
+  }
+
   return (
     <div className={css.app}>
       <header className={css.toolbar}>
-        <SearchBox value={query} onSearch={setQuery} />
+        <SearchBox value={query} onSearch={handleSearchChange} />
         {data && data.notes.length > 0 && (
           <Pagination
             totalPages={totalPages}

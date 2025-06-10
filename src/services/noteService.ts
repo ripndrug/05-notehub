@@ -1,16 +1,16 @@
 import axios from 'axios';
-import type Note from '../types/note';
+import type { Note } from '../types/note';
 import type NoteFormValues from '../types/NoteFormValues.ts';
 
 axios.defaults.baseURL = 'https://notehub-public.goit.study/api';
 
-interface SearchBoxProps {
+interface FetchNotesResponse {
     notes: Note[],
     totalPages: number,
 }
 
-export async function fetchNotes(searchQuery: string, page: number): Promise<SearchBoxProps> {
-    const res = await axios.get<SearchBoxProps>('/notes', {
+export async function fetchNotes(searchQuery: string, page: number): Promise<FetchNotesResponse> {
+    const res = await axios.get<FetchNotesResponse>('/notes', {
         params: {
             search: searchQuery,
             page,
@@ -33,8 +33,8 @@ export async function createNote(noteData: NoteFormValues) {
     return res.data;
 }
 
-export async function deleteNote(noteId: string) {
-    const res = await axios.delete(`/notes/${noteId}`, {
+export async function deleteNote(noteId: number) {
+    const res = await axios.delete<Note>(`/notes/${noteId}`, {
         headers: {
             Authorization: `Bearer ${import.meta.env.VITE_NOTEHUB_TOKEN}`
         }

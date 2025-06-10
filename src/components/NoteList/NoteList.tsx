@@ -1,5 +1,5 @@
 import css from './NoteList.module.css';
-import type Note from '../../types/note';
+import type { Note } from '../../types/note';
 import { deleteNote } from '../../services/noteService';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -18,7 +18,7 @@ export default function NoteList({ notes }: NoteListProps) {
   return (
     <ul className={css.list}>
       {notes.map(note => (
-        <li className={css.listItem}>
+        <li className={css.listItem} key={note.id}>
           <h2 className={css.title}>{note.title}</h2>
           <p className={css.content}>{note.content}</p>
           <div className={css.footer}>
@@ -26,8 +26,9 @@ export default function NoteList({ notes }: NoteListProps) {
             <button
               className={css.button}
               onClick={() => deleteNoteMutation.mutate(note.id)}
+              disabled={deleteNoteMutation.isPending}
             >
-              Delete
+              {deleteNoteMutation.isPending ? 'Deleting...' : 'Delete'}
             </button>
           </div>
         </li>

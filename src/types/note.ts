@@ -1,5 +1,5 @@
-export default interface Note {
-    id: string,
+export interface Note {
+    id: number,
     title: string,
     content: string,
     tag: string,

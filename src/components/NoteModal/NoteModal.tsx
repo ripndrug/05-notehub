@@ -1,10 +1,10 @@
 import NoteForm from '../NoteForm/NoteForm';
 import css from './NoteModal.module.css';
 import { createPortal } from 'react-dom';
-import type NoteFormProps from '../../types/NoteFormProps';
 import { useEffect } from 'react';
+import type NoteModalProps from '../../types/NoteModalProps';
 
-export default function NoteModal({ closeModal }: NoteFormProps) {
+export default function NoteModal({ closeModal }: NoteModalProps) {
   function handleBackdropClose(e: React.MouseEvent<HTMLDivElement>) {
     if (e.target === e.currentTarget) {
       closeModal();
@@ -19,8 +19,11 @@ export default function NoteModal({ closeModal }: NoteFormProps) {
     }
 
     document.addEventListener('keydown', handleEscapeClose);
-
-    return () => document.removeEventListener('keydown', handleEscapeClose);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', handleEscapeClose);
+      document.body.style.overflow = '';
+    };
   });
 
   return createPortal(
