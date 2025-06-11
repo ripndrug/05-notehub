@@ -10,18 +10,33 @@ interface FetchNotesResponse {
 }
 
 export async function fetchNotes(searchQuery: string, page: number): Promise<FetchNotesResponse> {
-    const res = await axios.get<FetchNotesResponse>('/notes', {
-        params: {
-            search: searchQuery,
-            page,
-            perPage: 12,
-        },
-        headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_NOTEHUB_TOKEN}`
-        },
-    });
+    if (searchQuery === '') {
+        const res = await axios.get<FetchNotesResponse>('/notes', {
+            params: {
+                page,
+                perPage: 12,
+            },
+            headers: {
+                Authorization: `Bearer ${import.meta.env.VITE_NOTEHUB_TOKEN}`
+            },
+        });
+        return res.data;
+    } else {
+        const res = await axios.get<FetchNotesResponse>('/notes', {
+            params: {
+                search: searchQuery,
+                page,
+                perPage: 12,
+            },
+            headers: {
+                Authorization: `Bearer ${import.meta.env.VITE_NOTEHUB_TOKEN}`
+            },
+        });
+        return res.data;
+    }
+    
 
-    return res.data;
+    
 }
 
 export async function createNote(noteData: NoteFormValues) {
